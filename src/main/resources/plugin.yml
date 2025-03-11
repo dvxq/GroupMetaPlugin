@@ -1,0 +1,5 @@
+name: GroupMetaManager
+version: '${version}'
+main: ru.healthanmary.groupmetamanager.GroupMetaManager
+api-version: '1.16'
+softdepend: ["LuckPerms", "PlaceholderAPI"]
