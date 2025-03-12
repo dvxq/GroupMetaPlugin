@@ -28,6 +28,7 @@ public final class GroupMetaManager extends JavaPlugin {
             new BoardPrefixPlaceholder().register();
             new ChatPrefixPlaceholder().register();
             new HeadPrefixPlaceholder().register();
+            new ExpiryTimePlaceholder().register();
 //            new BoardSuffixPlaceholder().register();
 //            new ChatSuffixPlaceholder().register();
 //            new TabSuffixPlaceholder().register();
