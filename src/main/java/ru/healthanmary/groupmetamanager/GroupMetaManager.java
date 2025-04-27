@@ -15,24 +15,11 @@ public final class GroupMetaManager extends JavaPlugin {
     @Override
     public void onEnable() {
         if (!setupPlugins()) {
-            getServer().getLogger().warning("Плагин выключен. Один из следующих плагинов отсутствует: PlaceholderAPI, LuckPerms");
+            getServer().getLogger().warning("Plugin is disabled. One of the next plugins isn't loaded: PlaceholderAPI, LuckPerms");
             getServer().getPluginManager().disablePlugin(this);
         }
-        RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
-        if (provider != null) {
-            LuckPerms api = provider.getProvider();
-            // зачем нужно - хз, но пуст будет
-        }
         if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            new TabPrefixPlaceholder().register();
-            new BoardPrefixPlaceholder().register();
-            new ChatPrefixPlaceholder().register();
-            new HeadPrefixPlaceholder().register();
-            new ExpiryTimePlaceholder().register();
-//            new BoardSuffixPlaceholder().register();
-//            new ChatSuffixPlaceholder().register();
-//            new TabSuffixPlaceholder().register();
-//            new HeadSuffixPlaceholder().register();
+            new MainPlaceholder().register();
         }
     }
 

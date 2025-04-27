@@ -7,17 +7,17 @@ import net.luckperms.api.model.group.Group;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.node.NodeType;
 import net.luckperms.api.node.types.PermissionNode;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.healthanmary.groupmetamanager.api.GroupMetaAPI;
 
 import java.util.Collection;
 
-public class ChatPrefixPlaceholder extends PlaceholderExpansion {
+public class MainPlaceholder extends PlaceholderExpansion {
     @Override
     public @NotNull String getIdentifier() {
-        return "groupmeta-chat-prefix";
+        return "groupmeta";
     }
 
     @Override
@@ -41,22 +41,17 @@ public class ChatPrefixPlaceholder extends PlaceholderExpansion {
 
     @Override
     public @Nullable String onPlaceholderRequest(Player player, @NotNull String params) {
-        LuckPerms lp = LuckPermsProvider.get();
-        User user = lp.getUserManager().getUser(player.getUniqueId());
-        Group group = lp.getGroupManager().getGroup(user.getPrimaryGroup());
-        String targetPermission = "chatprefix.";
-        Collection<PermissionNode> nodes = group.getNodes(NodeType.PERMISSION);
-
-        if (!nodes.isEmpty()) {
-            for (PermissionNode permNode : nodes) {
-                if (permNode.getKey().startsWith(targetPermission)) {
-                    String prefix = permNode.getKey().replace(targetPermission, "");
-                    return prefix.isEmpty() ? "" : " " + prefix;
-                }
-            }
-        } else {
-            return "";
+        switch (params) {
+            case "tabprefix": return GroupMetaAPI.getTabPrefix(player);
+            case "tabsuffix": return GroupMetaAPI.getTabSuffix(player);
+            case "chatsuffix": return GroupMetaAPI.getChatSuffix(player);
+            case "chatprefix": return GroupMetaAPI.getChatPrefix(player);
+            case "boardprefix": return GroupMetaAPI.getBoardPrefix(player);
+            case "boardsuffix": return GroupMetaAPI.getBoardSuffix(player);
+            case "headprefix": return GroupMetaAPI.getHeadPrefix(player);
+            case "headsuffix": return GroupMetaAPI.getHeadSuffix(player);
+            case "remaining_time": return GroupMetaAPI.getRemainingTime(player);
+            default: return "";
         }
-        return "";
     }
 }
